@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         org.springframework.security.core.userdetails.User springUser=null;
 
-        if(opt.isEmpty()) {
+        if(opt.isPresent()) {
             throw new UsernameNotFoundException("User with username: " +username +" not found");
         }else {
             User user =opt.get();	//retrieving user from DB

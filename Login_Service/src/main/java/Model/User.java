@@ -16,7 +16,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="users")
+@Table(name="Users")
 public class User {
 
     @Id
@@ -29,6 +29,18 @@ public class User {
 
     @Column(name="user_passwd")
     private String password;
+
+
+    @Column(name="user_email")
+    private String email;
+
+    @ElementCollection(fetch= FetchType.EAGER)
+    @CollectionTable(
+            name="roles",
+            joinColumns = @JoinColumn(name="user_id")
+    )
+    @Column(name="user_role")
+    private Set<String> roles;
 
     public Integer getId() {
         return id;
@@ -70,16 +82,6 @@ public class User {
         this.roles = roles;
     }
 
-    @Column(name="user_email")
-    private String email;
-
-    @ElementCollection(fetch= FetchType.EAGER)
-    @CollectionTable(
-            name="roles",
-            joinColumns = @JoinColumn(name="user_id")
-    )
-    @Column(name="user_role")
-    private Set<String> roles;
 
     @Override
     public String toString() {
